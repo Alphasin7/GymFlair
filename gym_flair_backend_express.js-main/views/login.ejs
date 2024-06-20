@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>login</title>
+</head>
+<body class=" lg:px-12 px-9 bg-[#f7f7f8] min-w-[1320px] flex justify-center items-center">
+    <div class="flex w-[40%] min-h-full flex-col justify-center px-6 py-5 lg:px-8 mt-10 bg-white rounded-lg shadow-lg">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <!-- <img class="mx-auto h-32 w-auto" src="/images/logo.png" alt="Your Company">
+          <h2 class="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+        -->
+        </div>
+      
+        <div class="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form class="space-y-6" >
+            <div>
+              <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <div class="mt-2">
+                <input id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+      
+            <div>
+              <div class="flex items-center justify-between">
+                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+              </div>
+              <div class="mt-2">
+                <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+      
+            <div>
+              <button type="submit"  class="flex w-full justify-center rounded-md bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+            </div>
+            <div>
+              <button type="button" onclick="signUp()" class="flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-slate-900 shadow-sm hover:bg-slate-100/95 hover:border-slate-100 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border-2 border-slate-900" >Sign up</button>
+            </div>
+          </form>    
+        </div>
+      </div>
+      <script src="/js/global.js">
+      </script>
+      <script>
+        const form = document.querySelector('form'); 
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const password = document.getElementById('password').value
+  const username = document.getElementById('username').value
+  
+ 
+  try {
+    const response = await fetch('/user/login-web', {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      body: JSON.stringify({username, password}),
+    });
+    
+    const data = await response.json()
+    if (data.redirectTo){
+        window.location.href = data.redirectTo
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+      </script>
+
+</body>
+</html>
